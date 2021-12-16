@@ -145,8 +145,8 @@ $(document).ready(function () {
     } else {
     }
 });
- 
- 
+
+
 //获取video标签
 function getVideoTag() {
     let iframe = document.getElementsByTagName("iframe")[0];
@@ -166,7 +166,7 @@ function getVideoTag() {
         "pauseButton": pauseButton
     }
 }
- 
+
 //读新闻或者看视频
 //type:0为新闻，1为视频
 async function reading(type) {
@@ -382,7 +382,7 @@ async function findExamPaper() {
     console.log("正在寻找未完成的专项答题")
     while (continueFind) {
         let startTime = Date.now();
- 
+
         await getExamPaper().then(async (data) => {
             if (data) {
                 if (examPaperTotalPageCount == null) {
@@ -411,7 +411,7 @@ async function findExamPaper() {
             } else {
                 continueFind = false;
             }
- 
+
             //fix code = 429
             let remainms = Date.now() - startTime;
             if (remainms < ratelimitms) {
@@ -505,7 +505,7 @@ async function findExamWeekly() {
             } else {
                 continueFind = false;
             }
- 
+
             //fix code = 429
             let remainms = Date.now() - startTime;
             if (remainms < ratelimitms) {
@@ -589,7 +589,7 @@ async function doingExam() {
         //选项按钮
         var allbuttons = document.querySelectorAll(".q-answer");
         //获取所有填空
-        var blanks = document.querySelectorAll("input[type=text]");
+        var blanks = document.querySelectorAll("input[type=text][class=blank]");
         try {
             //获取问题类型
             var questionType = document.querySelector(".q-header").textContent;
@@ -982,7 +982,7 @@ async function start() {
             taskProgress = await getToday();
             if (taskProgress != null) {
                 console.log("开始学习")
- 
+
                 //检查新闻
                 if (settings[0] && taskProgress[0].currentScore != taskProgress[0].dayMaxScore) {
                     tasks[0] = false;//只要还有要做的，就当做没完成
@@ -992,7 +992,7 @@ async function start() {
                 } else {
                     tasks[0] = true;
                 }
- 
+
                 //检查视频
                 let temp = parseInt(taskProgress[1].dayMaxScore - taskProgress[1].currentScore);
                 let temp2 = parseInt(taskProgress[3].dayMaxScore - taskProgress[3].currentScore);
@@ -1004,7 +1004,7 @@ async function start() {
                 } else {
                     tasks[1] = true;
                 }
- 
+
                 //检查每日答题
                 if (settings[6] && taskProgress[6].currentScore != taskProgress[6].dayMaxScore) {
                     tasks[2] = false;//只要还有要做的，就当做没完成
@@ -1013,7 +1013,7 @@ async function start() {
                 } else {
                     tasks[2] = true;
                 }
- 
+
                 //检查每周答题
                 if (settings[2] && taskProgress[2].currentScore == 0) {
                     tasks[3] = false;//只要还有要做的，就当做没完成
@@ -1026,7 +1026,7 @@ async function start() {
                 } else {
                     tasks[3] = true;
                 }
- 
+
                 //检查专项练习
                 if (settings[5] && taskProgress[5].currentScore == 0) {
                     tasks[4] = false;//只要还有要做的，就当做没完成
@@ -1039,7 +1039,7 @@ async function start() {
                 } else {
                     tasks[4] = true;
                 }
- 
+
                 if (tasks[0] && tasks[1] && tasks[2] && tasks[3] && tasks[4]) {
                     //如果检查都做完了，就不用继续了
                     continueToDo = false;
